@@ -11,6 +11,11 @@ import static com.backend.CoCe_OrderService.Validator.IsCarExtraUnderSix;
 @RequestMapping("/api/v1")
 public class Controller {
 
+    @GetMapping("/healthy")
+    public ResponseEntity<String> healthCheck() {
+        return new ResponseEntity<>("Order Service is up and running!", HttpStatus.OK);
+    }
+
     @PostMapping("/order")
     public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO orderDTO) {
         return IsCarExtraUnderSix(orderDTO.getConfigurationDTO()) ?
