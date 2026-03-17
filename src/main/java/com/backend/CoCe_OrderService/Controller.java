@@ -28,6 +28,7 @@ public class Controller {
         if (!IsCarExtraUnderSix(orderDTO.getConfigurationDTO())) {
             return new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
         }
+        orderDTO.setUrl(Generator.urlGenerator(orderDTO.getId()));
         Order saved = orderRepository.save(Mapper.toOrder(orderDTO));
         return new ResponseEntity<>(Mapper.toOrderDTO(saved), HttpStatus.CREATED);
     }
