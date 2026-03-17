@@ -1,5 +1,6 @@
 package com.backend.CoCe_OrderService;
 
+import com.backend.CoCe_OrderService.models.Order;
 import com.backend.CoCe_OrderService.models.OrderDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,12 @@ import static com.backend.CoCe_OrderService.Validator.IsCarExtraUnderSix;
 @RequestMapping("/api/v1")
 public class Controller {
 
+    private final OrderRepository orderRepository;
+
+    public Controller(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
     @GetMapping("/healthy")
     public ResponseEntity<String> healthCheck() {
         return new ResponseEntity<>("Order Service is up and running!", HttpStatus.OK);
@@ -18,9 +25,11 @@ public class Controller {
 
     @PostMapping("/order")
     public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO orderDTO) {
-        return IsCarExtraUnderSix(orderDTO.getConfigurationDTO()) ?
-                new ResponseEntity<>(orderDTO, HttpStatus.CREATED) :
-                new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
+        if (!IsCarExtraUnderSix(orderDTO.getConfigurationDTO())) {
+            return new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
+        }
+        Order saved = orderRepository.save(Mapper.toOrder(orderDTO));
+        return new ResponseEntity<>(Mapper.toOrderDTO(saved), HttpStatus.CREATED);
     }
 
 }
