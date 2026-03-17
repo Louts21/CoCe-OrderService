@@ -5,17 +5,19 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderDTO {
+public class Order {
 
-    private String id;
+    private Long id;
 
     private ConfigurationDTO configurationDTO;
     private String url;
+    private String placedAt;
 
-    public OrderDTO(String id, ConfigurationDTO configurationDTO, String url) {
+    public Order(Long id, ConfigurationDTO configurationDTO, String url, String placedAt) {
         this.id = id;
         this.configurationDTO = configurationDTO;
         this.url = url;
+        this.placedAt = placedAt;
     }
 
 }
