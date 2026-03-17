@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "orders")
 @Getter
@@ -15,6 +17,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String orderId;
+
     @Convert(converter = ConfigurationConverter.class)
     @Column(columnDefinition = "text")
     private ConfigurationDTO configurationDTO;
@@ -24,7 +28,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(ConfigurationDTO configurationDTO, String url, String placedAt) {
+    public Order(String orderId, ConfigurationDTO configurationDTO, String url, String placedAt) {
+        this.orderId = orderId;
         this.configurationDTO = configurationDTO;
         this.url = url;
         this.placedAt = placedAt;

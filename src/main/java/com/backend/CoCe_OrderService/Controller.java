@@ -39,10 +39,11 @@ public class Controller {
     }
 
     @GetMapping("/order/{id}")
-    public ResponseEntity<OrderDTO> getById(@PathVariable Long id) {
-        return orderRepository.findById(id)
-                .map(order -> new ResponseEntity<>(Mapper.toOrderDTO(order), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<OrderDTO> getById(@PathVariable String id) {
+        return orderRepository.findAll().stream().map(Mapper::toOrderDTO)
+                .filter(orderDTO -> orderDTO.getId().equals(id)).findFirst()
+                .map(orderDTO -> new ResponseEntity<>(orderDTO, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
