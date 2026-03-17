@@ -2,6 +2,7 @@ package com.backend.CoCe_OrderService;
 
 import com.backend.CoCe_OrderService.models.Order;
 import com.backend.CoCe_OrderService.models.OrderDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,9 @@ import static com.backend.CoCe_OrderService.Validator.IsCarExtraUnderSix;
 public class Controller {
 
     private final OrderRepository orderRepository;
+
+    @Value("${spring.application.frontend-url}")
+    private String frontendUrl;
 
     public Controller(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -28,7 +32,7 @@ public class Controller {
         if (!IsCarExtraUnderSix(orderDTO.getConfigurationDTO())) {
             return new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
         }
-        orderDTO.setUrl(Generator.urlGenerator(orderDTO.getId()));
+        orderDTO.setUrl(frontendUrl + orderDTO.getId());
         Order saved = orderRepository.save(Mapper.toOrder(orderDTO));
         return new ResponseEntity<>(Mapper.toOrderDTO(saved), HttpStatus.CREATED);
     }
