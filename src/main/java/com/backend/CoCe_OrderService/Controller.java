@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.backend.CoCe_OrderService.Validator.IsCarExtraUnderSix;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class Controller {
 
     private final OrderRepository orderRepository;
@@ -21,6 +21,7 @@ public class Controller {
     public Controller(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
+
 
     @GetMapping("/healthy")
     public ResponseEntity<String> healthCheck() {
@@ -35,6 +36,13 @@ public class Controller {
         orderDTO.setUrl(frontendUrl + orderDTO.getId());
         Order saved = orderRepository.save(Mapper.toOrder(orderDTO));
         return new ResponseEntity<>(Mapper.toOrderDTO(saved), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/order/{id}")
+    public ResponseEntity<OrderDTO> getById(@PathVariable Long id) {
+        return orderRepository.findById(id)
+                .map(order -> new ResponseEntity<>(Mapper.toOrderDTO(order), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
