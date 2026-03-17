@@ -1,3 +1,15 @@
 spring:
   application:
     name: CoCe-OrderService
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/coce_orders}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
