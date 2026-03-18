@@ -30,7 +30,7 @@ public class Controller {
 
     @PostMapping("/order")
     public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO orderDTO) {
-        if (!IsCarExtraUnderSix(orderDTO.getConfigurationDTO())) {
+        if (!IsCarExtraUnderSix(orderDTO.getCar())) {
             return new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
         }
         orderDTO.setUrl(frontendUrl + orderDTO.getId());

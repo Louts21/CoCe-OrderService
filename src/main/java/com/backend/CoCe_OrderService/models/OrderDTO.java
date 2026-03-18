@@ -9,12 +9,12 @@ public class OrderDTO {
 
     private String id;
 
-    private ConfigurationDTO configurationDTO;
+    private Car car;
     private String url;
 
-    public OrderDTO(String id, ConfigurationDTO configurationDTO, String url) {
+    public OrderDTO(String id, Car car, String url) {
         this.id = id;
-        this.configurationDTO = configurationDTO;
+        this.car = car;
         this.url = url;
     }
 

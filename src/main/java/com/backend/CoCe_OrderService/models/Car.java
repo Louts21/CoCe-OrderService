@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ConfigurationDTO {
+public class Car {
 
     private String id;
 
@@ -19,8 +19,8 @@ public class ConfigurationDTO {
 
     private double totalPrice;
 
-    public ConfigurationDTO(String id, CarModelDTO carModelDTO, CarEngineDTO carEngineDTO, CarPaintDTO carPaintDTO,
-                            CarWheelDTO carWheelDTO, CarExtraDTO[] carExtraDTOs, double totalPrice) {
+    public Car(String id, CarModelDTO carModelDTO, CarEngineDTO carEngineDTO, CarPaintDTO carPaintDTO,
+               CarWheelDTO carWheelDTO, CarExtraDTO[] carExtraDTOs, double totalPrice) {
         this.id = id;
         this.carModelDTO = carModelDTO;
         this.carEngineDTO = carEngineDTO;
