@@ -20,6 +20,7 @@ public class CoCeOrderServiceApplication {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
 				registry.addMapping("/api/order").allowedOrigins("http://localhost:5173");
+				registry.addMapping("/api/order/**").allowedOrigins("http://localhost:5173");
 			}
 		};
 	}
