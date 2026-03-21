@@ -1,6 +1,7 @@
 package com.backend.CoCe_OrderService;
 
 import org.jspecify.annotations.NonNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class CoCeOrderServiceApplication {
+
+	@Value("${spring.application.frontend-url}")
+	private String frontendUrl;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CoCeOrderServiceApplication.class, args);
@@ -19,8 +23,8 @@ public class CoCeOrderServiceApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
-				registry.addMapping("/api/order").allowedOrigins("http://localhost:5173");
-				registry.addMapping("/api/order/**").allowedOrigins("http://localhost:5173");
+				registry.addMapping("/api/order").allowedOrigins(frontendUrl);
+				registry.addMapping("/api/order/**").allowedOrigins(frontendUrl);
 			}
 		};
 	}

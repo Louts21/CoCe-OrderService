@@ -33,7 +33,7 @@ public class Controller {
         if (!IsCarExtraUnderSix(orderDTO.getCar())) {
             return new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
         }
-        orderDTO.setUrl(frontendUrl + orderDTO.getId());
+        orderDTO.setUrl(frontendUrl + "order/" + orderDTO.getId());
         Order saved = orderRepository.save(Mapper.toOrder(orderDTO));
         return new ResponseEntity<>(Mapper.toOrderDTO(saved), HttpStatus.CREATED);
     }
