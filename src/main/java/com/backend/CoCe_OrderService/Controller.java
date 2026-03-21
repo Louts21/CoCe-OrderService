@@ -15,8 +15,8 @@ public class Controller {
 
     private final OrderRepository orderRepository;
 
-    @Value("${spring.application.frontend-url}")
-    private String frontendUrl;
+    @Value("${spring.application.frontend-url-with-path}")
+    private String frontendUrlWithPath;
 
     public Controller(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -33,7 +33,7 @@ public class Controller {
         if (!IsCarExtraUnderSix(orderDTO.getCar())) {
             return new ResponseEntity<>(orderDTO, HttpStatus.BAD_REQUEST);
         }
-        orderDTO.setUrl(frontendUrl + "order/" + orderDTO.getId());
+        orderDTO.setUrl(frontendUrlWithPath + orderDTO.getId());
         Order saved = orderRepository.save(Mapper.toOrder(orderDTO));
         return new ResponseEntity<>(Mapper.toOrderDTO(saved), HttpStatus.CREATED);
     }
