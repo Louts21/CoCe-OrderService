@@ -13,7 +13,7 @@ public class Mapper {
     }
 
     public static OrderDTO toOrderDTO(Order order) {
-        return new OrderDTO(String.valueOf(order.getOrderId()), order.getCar(), order.getUrl());
+        return new OrderDTO(order.getOrderId(), order.getCar(), order.getUrl());
     }
 
 }
