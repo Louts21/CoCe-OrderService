@@ -23,8 +23,10 @@ public class CoCeOrderServiceApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
-				registry.addMapping("/api/order").allowedOrigins(frontendUrl);
-				registry.addMapping("/api/order/**").allowedOrigins(frontendUrl);
+				registry.addMapping("/api/**")
+						.allowedOrigins(frontendUrl)
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+						.allowedHeaders("Content-Type", "Authorization");
 			}
 		};
 	}

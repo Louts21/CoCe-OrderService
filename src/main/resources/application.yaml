@@ -1,8 +1,8 @@
 spring:
   application:
     name: CoCe-OrderService
-    frontend-url: ${FRONTEND_URL:http://localhost:5173/}
-    frontend-url-with-path: ${FRONTEND_URL_PATH:http://localhost:5173/order/}
+    frontend-url: ${FRONTEND_URL:http://localhost:3000}
+    frontend-url-with-path: ${FRONTEND_URL_PATH:http://localhost:3000/order/}
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/coce_orders}
     username: ${DATABASE_USERNAME:postgres}
